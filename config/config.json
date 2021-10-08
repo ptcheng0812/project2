@@ -1,12 +1,16 @@
 {
   "development": {
-    "database": "your_project_name_here_development",
+    "database": "peter-project-2",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "username": "postgres",
+    "password": "12345678"
   },
   "production": {
     "protocol": "postgres",
     "dialect": "postgres",
+    "username": "postgres",
+    "password": "12345678",
     "dialectOptions": {
       "ssl": {
         "require": true,

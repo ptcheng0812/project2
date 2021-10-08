@@ -5,6 +5,8 @@ const cookieSession = require('cookie-session')
 const expressLayouts = require('express-ejs-layouts')
 const compileSass = require('express-compile-sass')
 const methodOverride = require('method-override')
+const { body, validationResult } = require('express-validator')
+const { encodeArray, decodeArrayToObject } = require('../services/validation-query')
 const morgan = require('morgan')
 const moment = require("moment")
 const router = require('./routes')
@@ -49,11 +51,21 @@ app.use(cookieSession({
   // but for the sake of learning, we will leave this as is
 }))
 
+// Parse url queries and json to object to be used in req.query and req.body
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(multer().none()) // parse FormData to req.body
+
 // Give forms the ability to use DELETE and PUT method
 app.use(methodOverride('_method'))
 
 // Prints out request information
 app.use(morgan('tiny'))
+
+// Parse url queries and json to object to be used in req.query and req.body
+// Must be before routes
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 // Defining the routes for our server
 app.use('/', router)
