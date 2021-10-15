@@ -12,15 +12,16 @@ const permittedParams = [
   'area',
   'roomNumber',
   'description',
-  'imageOne',
-  'imageTwo',
-  'imageThree',
-  'imageFour'
+  'imageOne'
 ]
 
 const apiOwnPropertyCreate = async function (req, res) {
   const { locals: { currentUser } } = res
   const { body: propertyParams } = req
+
+  if (req.file && req.file.location) {
+    newProperty.imageOne = req.file.location
+  }
   const newProperty = await Property.create({
     ...propertyParams,
   }, {
@@ -35,9 +36,6 @@ const apiOwnPropertyCreate = async function (req, res) {
 
 module.exports = [
   MulterParser.single('imageOne'),
-  MulterParser.single('imageTwo'),
-  MulterParser.single('imageThree'),
-  MulterParser.single('imageFour'),
   authenticateCurrentUserByToken('json'),
   checkValidation,
   apiOwnPropertyCreate

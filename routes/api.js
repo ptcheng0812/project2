@@ -1,3 +1,4 @@
+const MulterParser = require('../services/MulterParser')
 const { Router } = require('express')
 const router = Router()
 
