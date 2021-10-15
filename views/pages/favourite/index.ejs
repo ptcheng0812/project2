@@ -1,0 +1,65 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<script>
+$(document).ready(function() {
+  const setModal = function(html) {
+    const $modal = $('#modal')
+    const $modalContent = $modal.find('.modal-content')
+    $modal.modal('show')
+    $modalContent.html(html)
+  }
+
+  const setLoadingModal = function() {
+    setModal(`
+      <div class="modal-header">
+        <h5 class="modal-title">Loading</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+      </div>
+    `)
+  }
+
+  $('#list-group').on('click', '.show-btn', function (e) {
+    e.preventDefault()
+    const $elem = $(e.target)
+    const url = $elem.data('url')
+    const method = $elem.data('method')
+    axios({ method, url}).then(function (resp) {
+      setModal(resp.data)
+    })
+  })
+
+  $('#list-group').on('click', '#delete-btn', function (e) {
+    e.preventDefault()
+    const $elem = $(e.target)
+    const url = $elem.data('url')
+    const method = $elem.data('method')
+    axios({ method, url }).then(function() {
+      $(`#list-group .delete-btn[data-url="${url}"][data-method="DELETE"]`).parentsUntil('#favourite-list').remove()
+    })
+  })
+})
+</script>
+<%- contentFor('body') %>
+<h2>Favourite</h2>
+
+
+<div id="list-group">
+  <% if (favourites.length > 0) { %>
+    <ul id="favourite-list" class="list-unstyled">
+      <% favourites.forEach(function(favourite){ %>
+        <li class="my-1">
+          <a id="favourite-id" class="favourite-id font-weight-bold"><%= favourite.id %></a>
+          <a id= "show-btn" class="show-btn font-weight-bold" data-url="/api/ownproperty/<%= favourite.PropertyId %>" data-method="GET">  # <%= favourite.PropertyId %></a>
+          <button id= "delete-btn" class="delete-btn btn btn-danger btn-sm" data-url="/api/favourite/<%= favourite.id %>" data-method="DELETE"><i class="fas fa-trash">DELETE</i></button>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
+
+<%- include('../../_partials/modal') %>

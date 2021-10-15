@@ -1,0 +1,140 @@
+<script>
+  // $(document).ready(() => {
+
+  //   const $propertyImageOneInput = $('#property-imageOne-input')
+  //   const $propertyImageOnePreview = $('#property-imageOne-preview')
+  //   $propertyImageOneInput.on('change', (e) => {
+  //     const $elem = $(e.target)
+  //     const [file] = $elem.prop('files')
+  //     if (file) {
+  //       $profileAvatarPreview.removeClass('d-none').attr('src', URL.createObjectURL(file))
+  //     } else {
+  //       $profileAvatarPreview.addClass('d-none')
+  //     }
+  //   })
+  // })
+</script>
+
+<form id="property-form" action="<%= action %>" method="POST">
+  <div class="form-group">
+    <label>Type</label>
+    <input
+      class="form-control"
+      type="text"
+      name="type"
+      data-error-ref="type"
+      value="<%= property.type %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Name</label>
+    <input
+      class="form-control"
+      type="text"
+      name="name"
+      data-error-ref="name"
+      value="<%= property.name %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Address</label>
+    <input
+      class="form-control"
+      type="text"
+      name="address"
+      data-error-ref="address"
+      value="<%= property.address %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Price</label>
+    <input
+      class="form-control"
+      type="number"
+      name="price"
+      data-error-ref="price"
+      value="<%= property.price %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Year</label>
+    <input
+      class="form-control"
+      type="text"
+      name="year"
+      data-error-ref="year"
+      value="<%= property.year %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Area</label>
+    <input
+      class="form-control"
+      type="text"
+      name="area"
+      data-error-ref="area"
+      value="<%= property.area %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Room Number</label>
+    <input
+      class="form-control"
+      type="number"
+      name="roomNumber"
+      data-error-ref="roomNumber"
+      value="<%= property.roomNumber %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <input
+      class="form-control"
+      type="text"
+      name="description"
+      data-error-ref="description"
+      value="<%= property.description %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label class="d-block">Image One</label>
+
+    <div class="custom-file">
+      <input
+        id="property-imageOne-input"
+        class="custom-file-input"
+        type="file"
+        name="imageOne"
+        accept="image/png, image/jpeg"
+      >
+
+      <div class="invalid-feedback"></div>
+    </div>
+  </div>
+
+  <button id="own-property-form-submit" type="submit" class="btn btn-success">Submit</button>
+</form>

@@ -1,0 +1,137 @@
+<style>
+  body {
+    font-family: "Lato", sans-serif;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+</style>
+
+<script>
+//click SignUp Modal and LogIn Modal
+$(document).ready(function() {
+  $navbar = $('#navbar')
+  $navbar.on('click', '#signup-btn', function(e) {
+    e.preventDefault()
+    $('#signup-modal').modal('show')
+  })
+  $navbar.on('click', '#login-btn', function(e) {
+    e.preventDefault()
+    $('#login-modal').modal('show')
+  })
+  $navbar.on('click', '#logout-btn', function(e) {
+    e.preventDefault()
+    axios({
+      method: 'DELETE',
+      url: "/api/auth/logout"
+    }).then(function () {
+      window.location.href= '/'
+    })
+  })
+  $navbar.on('click', '#new-btn', function(e) {
+    e.preventDefault()
+    $('#new-modal').modal('show')
+  })
+})
+
+//side bar
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <% if (currentUser) { %>
+      <a href="/ownproperty">Own Property</a>
+      <a href="/favourite">Favourite</a>
+      <% } %>
+      <a href="/property">Property</a>
+      <a href="/users">User Rank</a>
+    </div>
+
+  <div id="main">
+    <span style="font-size:30px;cursor:pointer; color:#f1f1f1"
+          onclick="openNav()"
+    >&#9776; </span>
+  </div>
+
+  <a class="navbar-brand" href="/">HOUSEY</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+      <% if (currentUser) { %>
+        <li>
+          <button type="button" class="btn btn-success btn-sm" id="new-btn" data-url="/api/ownproperty/new" data-method="GET" >NEW</button>
+        </li>
+        <li class="nav-item">
+          <a id="logout-btn" class="nav-link" >Logout</a>
+        </li>
+      <% } else { %>
+        <li class="nav-item">
+          <a id="signup-btn" class="nav-link" >SignUp</a>
+        </li>
+        <li class="nav-item">
+          <a id="login-btn" class="nav-link"  >Login</a>
+        </li>
+      <% } %>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<%- include('./signup-modal') %>
+<%- include('./login-modal') %>
+<%- include('../api/own-property/new') %>

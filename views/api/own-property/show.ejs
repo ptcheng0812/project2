@@ -1,0 +1,21 @@
+<h1>Own Property Created</h1>
+
+<div class="text-center">
+  <h1>Property <%= property.id %></h1>
+  <h2>Type: <%= property.type %></h2>
+  <h2>Name: <%= property.name %></h2>
+  <h2>Address: <%= property.address %></h2>
+  <h2>Price: <%= property.price %></h2>
+  <h2>Year: <%= property.year %></h2>
+  <h2>Area: <%= property.area %></h2>
+  <h2>Room Number: <%= property.roomNumber %></h2>
+  <h2>Description: <%= property.description %></h2>
+  <img  id="propert-imageOne-view"
+        src="<%= property.imageOne %>"
+        alt="imageOne"
+        style="width: 300px; height: auto;"
+  >
+  <h3>Posted At: <%= moment(property.createdAt).format('YYYY/MM/DD') %></h3>
+</div>
+
+<a href="/ownproperty">Back</a>
