@@ -1,0 +1,78 @@
+<script>
+  $(document).ready(function () {
+    bsCustomFileInput.init()
+
+    const setModal = function(html) {
+    const $modal = $('#modal')
+    const $modalContent = $modal.find('.modal-content')
+
+    $modal.modal('show')
+    $modalContent.html(html)
+    }
+
+    let $userID = $('.user-id')
+    let currentUserIdIndex = Number($('.current-user-id').text())
+    let userIdIndex = Number($userID.text())
+    if (currentUserIdIndex == userIdIndex) {
+      $('.update-btn').removeAttr('style')
+      $(".form-user").removeAttr('style')
+    }
+
+    $('#modal-group').on('click', '.update-btn', function(e) {
+      e.preventDefault()
+      const $elem = $(e.target)
+      const url = $elem.data('url')
+      const method = $elem.data('method')
+      const formData = new FormData($('#user-profile-avatar-form')[0])
+      $elem.attr('disabled', true)
+
+      axios({ method, url, data: formData }).then(function (resp) {
+        setModal(resp.data)
+      })
+    })
+  })
+</script>
+
+<div  class="modal-header">
+  <h5 class="modal-title">User Profile</h5>
+  <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+</div>
+<div id="modal-group" class="modal-body">
+  <div class="current-user-id"style="display: none;" ><%= currentUser.id %></div>
+  <div class="text-center">
+    <% if (user.avatar !== null) { %>
+      <img  id="user-avatar-view"
+      src="<%= user.avatar %>"
+      alt="avatar"
+      >
+      <% } %>
+      <h3><%= user.name %></h3>
+      <h3>Phone: <%= user.phone %></h3>
+      <h3><%= user.introduction %></h3>
+      <div class="user-id" style="display: none;"><%= user.id %></div>
+      <form id="user-profile-avatar-form" class="form-user"  style="display: none;"novalidate>
+        <div class="form-group">
+          <label>Image One</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="user-avatar-input" name="avatar">
+            <label class="custom-file-label" for="user-avatar-input">Choose file</label>
+          </div>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Yourself</label>
+          <input
+            class="form-control"
+            type="text"
+            name="introduction"
+            data-error-ref="introduction"
+          >
+          <div class="invalid-feedback"></div>
+        </div>
+      </form>
+    <button class="update-btn"  data-url="/api/userprofile/<%= currentUser.id %>"  data-method="PUT" style="display: none;">Update</button>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+</div>

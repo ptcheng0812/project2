@@ -1,4 +1,3 @@
-const MulterParser = require('../services/MulterParser')
 const { Router } = require('express')
 const router = Router()
 
@@ -8,15 +7,19 @@ router.post('/auth/login', require('../controllers/api/auth/login'))
 router.delete('/auth/logout', require('../controllers/api/auth/logout'))
 
 //Own Property
-router.post('/ownproperty', require('../controllers/api/own-property/create'))
-router.get('/ownproperty/new', require('../controllers/api/own-property/new'))
-router.get('/ownproperty/:id/edit', require('../controllers/api/own-property/edit'))
-router.get('/ownproperty/:id', require('../controllers/api/own-property/show'))
-router.put('/ownproperty/:id', require('../controllers/api/own-property/update'))
-router.delete('/ownproperty/:id', require('../controllers/api/own-property/destroy'))
+router.post('/ownproperties', require('../controllers/api/own-properties/create'))
+router.get('/ownproperties/new', require('../controllers/api/own-properties/new'))
+router.get('/ownproperties/:id/edit', require('../controllers/api/own-properties/edit'))
+router.get('/ownproperties/:id', require('../controllers/api/own-properties/show'))
+router.put('/ownproperties/:id', require('../controllers/api/own-properties/update'))
+router.delete('/ownproperties/:id', require('../controllers/api/own-properties/destroy'))
 
-//Favourite
-router.post('/favourite', require('../controllers/api/favourite/create'))
-router.delete('/favourite/:id', require('../controllers/api/favourite/destroy'))
+//favourites
+router.post('/favourites', require('../controllers/api/favourites/create'))
+router.delete('/favourites', require('../controllers/api/favourites/destroy'))
+
+//user-profile
+router.get('/userprofile/:id', require('../controllers/api/user-profile/show'))
+router.put('/userprofile/:id', require('../controllers/api/user-profile/update'))
 
 module.exports = router

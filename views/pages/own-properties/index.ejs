@@ -1,0 +1,118 @@
+<%- contentFor('styles') %>
+<style>
+  .card-body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2{
+  color: #333333;
+  font-family: 'Courier New', monospace;
+  }
+</style>
+<%- contentFor('scripts') %>
+<script>
+  $(document).ready(function() {
+  const setModal = function(html) {
+    const $modal = $('#modal')
+    const $modalContent = $modal.find('.modal-content')
+    $modal.modal('show')
+    $modalContent.html(html)
+  }
+
+  const setLoadingModal = function() {
+    setModal(`
+      <div class="modal-header">
+        <h5 class="modal-title">Loading</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+      </div>
+    `)
+  }
+
+  $('#list-group').on('click', '.show-btn, .edit-btn', function(e) {
+    e.preventDefault()
+    const $elem = $(e.target)
+    const url = $elem.data('url')
+    const method = $elem.data('method')
+
+    console.log($elem, url, method)
+    setLoadingModal()
+    axios({ method, url }).then(function(resp) {
+      setModal(resp.data)
+    })
+  })
+
+  $('#list-group').on('click', '.delete-btn', function (e) {
+    e.preventDefault()
+    const $elem = $(e.target)
+    const url = $elem.data('url')
+    const method = $elem.data('method')
+    axios({ method, url }).then(function() {
+      $(`#list-group .delete-btn[data-url="${url}"][data-method="DELETE"]`).parentsUntil('#own-property-list').remove()
+    })
+  })
+})
+</script>
+<%- contentFor('body') %>
+<h2 class="text-center">Own Property List</h2>
+
+<%- include('_partials/filter') %>
+
+<div id="list-group">
+  <% if (property.length > 0) { %>
+      <div id="own-property-list" class="row row-cols-1 row-cols-md-2">
+        <% property.forEach(function(property){ %>
+          <div class="col mb-4">
+            <div class="card">
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img  id="propert-imageOne-view"
+                    class="card-img-top d-block w-100"
+                    src="<%= property.imageOne %>"
+                    alt="imageOne"
+                    >
+                  </div>
+                  <div class="carousel-item">
+                    <img  id="propert-imageTwo-view"
+                    class="card-img-top d-block w-100"
+                    src="<%= property.imageTwo %>"
+                    alt="imageTwo"
+                    >
+                  </div>
+                  <div class="carousel-item">
+                    <img  id="propert-imageThree-view"
+                    class="card-img-top d-block w-100"
+                    src="<%= property.imageThree %>"
+                    alt="imageThree"
+                    >
+                  </div>
+                  <div class="carousel-item">
+                    <img  id="propert-imageFour-view"
+                    class="card-img-top d-block w-100"
+                    src="<%= property.imageFour %>"
+                    alt="imageFour"
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <a class="show-btn font-weight-bolder"   data-url="/api/ownproperties/<%= property.id %>"   data-method="GET"><%= property.name %></a>
+                <a class="font-weight-bold"> <%= property.type %></a>
+                <a class="font-weight-bold">$ <%= property.price %></a>
+                <button class="edit-btn btn btn-info btn-sm" data-url="/api/ownproperties/<%= property.id %>/edit" data-method="GET"><i class="fas fa-edit">EDIT</i></button>
+                <button class="delete-btn btn btn-danger btn-sm" data-url="/api/ownproperties/<%= property.id %>" data-method="DELETE"><i class="fas fa-trash">DELETE</i></button>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+        </div>
+
+      <%- include('_partials/pagination') %>
+    <% } %>
+</div>

@@ -13,9 +13,23 @@
   //     }
   //   })
   // })
+
+  $(document).ready(() => {
+    bsCustomFileInput.init()
+
+    // $('#property-form').on('submit', (e) => {
+    //   e.preventDefault()
+    //   const $elem = $(e.target)
+    //   const method = $elem.data('method')
+    //   const url = $elem.data('url')
+    //   const data = new FormData($elem[0])
+
+    //   axios({ method, url, data })
+    // })
+  })
 </script>
 
-<form id="property-form" action="<%= action %>" method="POST">
+<form id="property-form" novalidate>
   <div class="form-group">
     <label>Type</label>
     <input
@@ -24,7 +38,6 @@
       name="type"
       data-error-ref="type"
       value="<%= property.type %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -37,7 +50,6 @@
       name="name"
       data-error-ref="name"
       value="<%= property.name %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -50,7 +62,6 @@
       name="address"
       data-error-ref="address"
       value="<%= property.address %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -63,7 +74,6 @@
       name="price"
       data-error-ref="price"
       value="<%= property.price %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -76,7 +86,6 @@
       name="year"
       data-error-ref="year"
       value="<%= property.year %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -89,7 +98,6 @@
       name="area"
       data-error-ref="area"
       value="<%= property.area %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -102,7 +110,6 @@
       name="roomNumber"
       data-error-ref="roomNumber"
       value="<%= property.roomNumber %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
@@ -115,26 +122,46 @@
       name="description"
       data-error-ref="description"
       value="<%= property.description %>"
-      required
     >
     <div class="invalid-feedback"></div>
   </div>
 
+  <h4>Maximum upload 4 images</h4>
+
   <div class="form-group">
-    <label class="d-block">Image One</label>
-
+    <label>Image One</label>
     <div class="custom-file">
-      <input
-        id="property-imageOne-input"
-        class="custom-file-input"
-        type="file"
-        name="imageOne"
-        accept="image/png, image/jpeg"
-      >
-
-      <div class="invalid-feedback"></div>
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageOne">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
     </div>
+    <div class="invalid-feedback"></div>
   </div>
 
-  <button id="own-property-form-submit" type="submit" class="btn btn-success">Submit</button>
+  <div class="form-group">
+    <label>Image Two</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageTwo">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image Three</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageThree">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image Four</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageFour">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
 </form>

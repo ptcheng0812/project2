@@ -41,7 +41,6 @@ app.use('/axios',  express.static('node_modules/axios/dist'))
 // Parse url queries and json to object to be used in req.query and req.body
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-// app.use(multer().none()) // parse FormData to req.body
 
 // Parse cookies
 app.use(cookieSession({

@@ -1,3 +1,9 @@
+<script>
+  $(document).ready(() => {
+    bsCustomFileInput.init()
+  })
+</script>
+
 <form id="property-update-form" novalidate>
   <div class="form-group">
     <label>Type</label>
@@ -100,6 +106,42 @@
       value="<%= property.description %>"
       required
     >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image One</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageOne">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image Two</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageTwo">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image Three</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageThree">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Image Four</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="property-imageOne-input" name="imageFour">
+      <label class="custom-file-label" for="property-imageOne-input">Choose file</label>
+    </div>
     <div class="invalid-feedback"></div>
   </div>
 </form>

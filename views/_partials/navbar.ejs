@@ -52,14 +52,17 @@
 //click SignUp Modal and LogIn Modal
 $(document).ready(function() {
   $navbar = $('#navbar')
+
   $navbar.on('click', '#signup-btn', function(e) {
     e.preventDefault()
     $('#signup-modal').modal('show')
   })
+
   $navbar.on('click', '#login-btn', function(e) {
     e.preventDefault()
     $('#login-modal').modal('show')
   })
+
   $navbar.on('click', '#logout-btn', function(e) {
     e.preventDefault()
     axios({
@@ -69,9 +72,37 @@ $(document).ready(function() {
       window.location.href= '/'
     })
   })
+
+  const setModal = function(html) {
+    const $modal = $('#modal')
+    const $modalContent = $modal.find('.modal-content')
+    $modal.modal('show')
+    $modalContent.html(html)
+  }
+
+  const setLoadingModal = function() {
+    setModal(`
+      <div class="modal-header">
+        <h5 class="modal-title">Loading</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+      </div>
+    `)
+  }
+
   $navbar.on('click', '#new-btn', function(e) {
     e.preventDefault()
-    $('#new-modal').modal('show')
+    setLoadingModal()
+    axios({
+      method: 'GET',
+      url: "/api/ownproperties/new"
+    }).then(function (resp) {
+      setModal(resp.data)
+    })
   })
 })
 
@@ -91,11 +122,11 @@ function closeNav() {
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <% if (currentUser) { %>
-      <a href="/ownproperty">Own Property</a>
-      <a href="/favourite">Favourite</a>
+      <a href="/ownproperties">Own Property</a>
+      <a href="/favourites">Favourite</a>
+      <a href="/properties">Property</a>
+      <a href="/users">Users</a>
       <% } %>
-      <a href="/property">Property</a>
-      <a href="/users">User Rank</a>
     </div>
 
   <div id="main">
@@ -104,7 +135,7 @@ function closeNav() {
     >&#9776; </span>
   </div>
 
-  <a class="navbar-brand" href="/">HOUSEY</a>
+  <a class="navbar-brand" href="/"><img src="https://peter-cheng-bucket.s3.us-east-2.amazonaws.com/signal-2021-10-18-172048_002.png" alt="page-logo"  width="100" height="70"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -114,7 +145,7 @@ function closeNav() {
       <li class="nav-item">
       <% if (currentUser) { %>
         <li>
-          <button type="button" class="btn btn-success btn-sm" id="new-btn" data-url="/api/ownproperty/new" data-method="GET" >NEW</button>
+          <button type="button" class="btn btn-success btn-sm" id="new-btn" data-url="/api/ownproperties/new" data-method="GET" >NEW</button>
         </li>
         <li class="nav-item">
           <a id="logout-btn" class="nav-link" >Logout</a>
@@ -134,4 +165,3 @@ function closeNav() {
 
 <%- include('./signup-modal') %>
 <%- include('./login-modal') %>
-<%- include('../api/own-property/new') %>

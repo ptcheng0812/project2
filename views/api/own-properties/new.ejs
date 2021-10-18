@@ -1,0 +1,36 @@
+<script>
+  $(document).ready(function() {
+    const setModal = function(html) {
+    const $modal = $('#modal')
+    const $modalContent = $modal.find('.modal-content')
+
+    $modal.modal('show')
+    $modalContent.html(html)
+    }
+
+    $('#new-group').on('click', '#own-property-form-submit', function(e) {
+      e.preventDefault()
+      const $elem = $(e.target)
+      const url = $elem.data('url')
+      const method = $elem.data('method')
+      const formData = new FormData($('#property-form')[0])
+      $elem.attr('disabled', true)
+
+      axios({ method, url, data: formData }).then(function (resp) {
+        setModal(resp.data)
+      })
+    })
+  })
+</script>
+
+<div  class="modal-header">
+  <h5 class="modal-title">New Own Property</h5>
+  <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+</div>
+<div id="new-group" class="modal-body">
+  <%- include('../_partials/form') %>
+  <button id="own-property-form-submit" type="submit" class="btn btn-success" data-url="/api/ownproperties" data-method="POST">Submit</button>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+</div>

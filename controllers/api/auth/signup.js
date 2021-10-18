@@ -4,7 +4,7 @@ const MulterParser = require('../../../services/MulterParser')
 const { User } = require('../../../models')
 const { checkValidation } = require('../../_helpers')
 
-const permittedSignupParams = ['email', 'passwordHash']
+const permittedSignupParams = ['name','phone','email', 'passwordHash', 'introduction']
 
 // const validation = [
 //   body('email')
