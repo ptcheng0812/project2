@@ -20,6 +20,32 @@
   right: 0px;
   position: fixed;
   }
+
+  body {
+    background: #e8cbc0;
+    background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+    background: linear-gradient(to right, #e8cbc0, #636fa4);
+    min-height: 100vh;
+}
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.social-link:hover, .social-link:focus {
+    background: #ddd;
+    text-decoration: none;
+    color: #555;
+}
 </style>
 <%- contentFor('scripts') %>
 <script>
@@ -57,30 +83,58 @@
   })
 </script>
 <%- contentFor('body') %>
-<h2>Users</h2>
 
 <%- include('_partials/filter') %>
 
-<div id="list-group" class="row">
+<!-- <div id="list-group" class="row"> -->
+  <div class="container">
+    <div class="col text-center">
   <% if (users.length > 0) { %>
     <% users.forEach(function(user){ %>
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-body">
-            <% if (user.avatar !== null) { %>
-              <img  class="user-avatar-view"
-                    src="<%= user.avatar %>"
-                    alt="avatar"
-                    style="height:100px; width:100px;"
-              >
-            <% } %>
-            <h3 class="show-btn font-weight-bold"><%= user.name %></h3>
-            <button class="show-user-btn btn-primary" data-url="/api/userprofile/<%= user.id %>" data-method="GET">Info</button>
-          </div>
+        <!-- Team item -->
+        <div class="col-lg-12 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4">
+              <% if (user.avatar !== null) { %>
+                <img src="<%= user.avatar %>" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <% } %>
+              <% if (user.avatar === null) { %>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <% } %>
+                <h5 class="mb-0"><%= user.name %></h5><span class="small text-uppercase text-muted"><%= user.introduction %></span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div><!-- End -->
+      <!-- <div class="col-lg-4">
+        <div class="card text-center">
+          <h5 class="card-header">Profile</h5>
+          <% if (user.avatar !== null) { %>
+            <img  class="user-avatar-view card-img-top"
+            src="<%= user.avatar %>"
+            alt="avatar"
+            style="height:100px; width:100px;"
+            >
+          <% } %>
+          <% if (user.avatar === null) { %>
+            <img  class="user-avatar-view card-img-top"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+            alt="avatar"
+            style="height:100px; width:100px;"
+            >
+          <% } %>
+            <div class="card-body">
+              <h5 class="show-btn font-weight-bold card-text"><%= user.name %></h5>
+              <button class="show-user-btn btn-primary" data-url="/api/userprofile/<%= user.id %>" data-method="GET">Info</button>
+            </div>
         </div>
-      </div>
+      </div> -->
     <% }) %>
     <% } %>
+    </div>
   </div>
 
-<%- include('_partials/pagination') %>
+<!-- <%- include('_partials/pagination') %> -->

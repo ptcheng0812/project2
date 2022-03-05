@@ -1,7 +1,7 @@
 <style>
-  body {
+  /* body {
     font-family: "Lato", sans-serif;
-  }
+  } */
 
   .sidenav {
     height: 100%;
@@ -37,7 +37,7 @@
     margin-left: 50px;
   }
 
-  #main {
+  #main-nav {
     transition: margin-left .5s;
     padding: 16px;
   }
@@ -109,12 +109,12 @@ $(document).ready(function() {
 //side bar
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("main-nav").style.marginLeft = "250px";
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
+  document.getElementById("main-nav").style.marginLeft= "0";
 }
 </script>
 
@@ -129,7 +129,7 @@ function closeNav() {
       <% } %>
     </div>
 
-  <div id="main">
+  <div id="main-nav">
     <span style="font-size:30px;cursor:pointer; color:#f1f1f1"
           onclick="openNav()"
     >&#9776; </span>
@@ -152,10 +152,10 @@ function closeNav() {
         </li>
       <% } else { %>
         <li class="nav-item">
-          <a id="signup-btn" class="nav-link" >SignUp</a>
+          <a id="signup-btn" class="nav-link pointer" >SignUp</a>
         </li>
         <li class="nav-item">
-          <a id="login-btn" class="nav-link"  >Login</a>
+          <a id="login-btn" class="nav-link pointer"  >Login</a>
         </li>
       <% } %>
       </li>

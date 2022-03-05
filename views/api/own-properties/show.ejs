@@ -1,23 +1,23 @@
 <style>
-.modal-body {
+/* .modal-body {
   font-family: Arial, Helvetica, sans-serif;
   display: grid;
   place-items: center;
   min-height: 100vh;
-}
+} */
 
-.container {
+/* .container {
 
   position: relative;
   display: grid;
   grid-template-columns: 300px 600px;
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.356);
-}
+} */
 
-img {
+/* img {
   width: 300px;
   height: 300px;
-}
+} */
 .close-btn {
   position: absolute;
   bottom: -20px;
@@ -61,11 +61,13 @@ h2 {
   color: #818189;
 }
 
-p {
+/* p {
   font-weight: bold;
   font-size: 1.2rem;
-}
+} */
 </style>
+
+
 
 <div  class="modal-header">
   <h5 class="modal-title">Own Property Created</h5>
@@ -138,7 +140,7 @@ p {
         <span class="sr-only">Next</span>
       </a>
       </div>
-      <h3>Posted At: <%= moment(property.createdAt).format('YYYY/MM/DD') %></h3>
+      <div>Posted At: <%= moment(property.createdAt).format('YYYY/MM/DD') %></div>
     </div>
   </div>
 </div>

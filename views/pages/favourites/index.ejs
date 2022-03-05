@@ -9,8 +9,20 @@
   font-family: 'Courier New', monospace;
   }
 
+  .search-input {
+    margin-bottom: 20px;
+  }
+
+  .tag-zone {
+    margin-bottom: 30px;
+  }
+
   #button-group{
     margin: 40px;
+  }
+
+  .show-btn {
+    margin: 30px;
   }
 
   .footer-dark {
@@ -54,6 +66,16 @@ $(document).ready(function() {
     })
   })
 
+  // $('#list-group').on('click', '.details-btn', function (e) {
+  //   // e.preventDefault()
+  //   const $elem = $(e.target)
+  //   const url = $elem.data('url')
+  //   const method = $elem.data('method')
+  //   axios({ method, url}).then(function (resp) {
+  //     console.log("resp", resp)
+  //   })
+  // })
+
   $('#button-group').on('click', '.destroy-btn', function (e) {
     e.preventDefault()
     const $elem = $(e.target)
@@ -64,17 +86,35 @@ $(document).ready(function() {
     })
   })
 })
+
 </script>
 <%- contentFor('body') %>
 <h2>Favourite</h2>
+
+<div class="search-input"><input class="form-control" type="text" placeholder="Readonly input here…" readonly></div>
+
+<div class="tag-zone">
+  <span class="badge badge-pill badge-primary">Sale</span>
+  <span class="badge badge-pill badge-primary">Rent</span>
+  <span class="badge badge-pill badge-primary">Garden</span>
+  <span class="badge badge-pill badge-primary">Apartment</span>
+  <span class="badge badge-pill badge-primary">House</span>
+  <!-- <span class="badge badge-pill badge-primary">Info</span>
+  <span class="badge badge-pill badge-primary">Light</span>
+  <span class="badge badge-pill badge-primary">Dark</span> -->
+</div>
 
 <div id="list-group">
   <% if (favourites.length > 0) { %>
     <ul id="favourite-list" class="list-group">
       <% favourites.forEach(function(favourite){ %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <a  class="show-btn font-weight-bold" data-url="/api/ownproperties/<%= favourite.PropertyId %>" data-method="GET">  # <%= favourite.PropertyId %></a>
-          <button class="delete-btn btn btn-danger btn-sm"  data-url="/api/favourites" data-method="DELETE" style="display: none"><i class="fas fa-trash">DELETE</i></button>
+        <li class="list-group-item d-flex justify-content-between">
+          <details class="details-btn" data-url="/api/ownproperties/<%= favourite.PropertyId %>" data-method="GET">
+            <summary># <%= favourite.PropertyId %>  <%= favourite.createdAt %></summary>
+            <p><%= favourite.name %></p>
+            <button  type="button" class="show-btn font-weight-bold btn btn-info" data-url="/api/ownproperties/<%= favourite.PropertyId %>" data-method="GET">  View More </button>
+            <!-- <button class="delete-btn btn btn-danger btn-sm"  data-url="/api/favourites" data-method="DELETE" style="display: none"><i class="fas fa-trash">DELETE</i></button> -->
+          </details>
         </li>
       <% }) %>
     </ul>

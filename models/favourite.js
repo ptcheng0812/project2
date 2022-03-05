@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Favourite.User = this.belongsTo(models.User)
       Favourite.Property = this.belongsTo(models.Property)
+      // Favourite.Propertys = this.hasMany(models.Property)
     }
   };
   Favourite.init({
